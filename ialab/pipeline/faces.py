@@ -4,6 +4,10 @@ import os
 
 
 class FaceExtractor(Processor):
+    """
+    Given an image and a set of bounding boxes cut each of the bounding boxes providing for
+    the next Processor a list of images.
+    """
     def __init__(self, outputs=[]):
         Processor.__init__(self, outputs)
 
@@ -14,7 +18,20 @@ class FaceExtractor(Processor):
 
 
 class FaceRecognition(Processor):
+    """
+    Allows to load a face database from file images and then is able to run face
+    recognition over images providing the bounding box for the image together with
+    the person identity as well as the provided image
+
+    Delivers: (image, [(location, name), . . .])
+    """
     def __init__(self, paths='', outputs=[], every_n_frames=1):
+        """
+
+        :param paths: Folder with the faces images for each person. The name of the file is the name of the person.
+        :param outputs: Next processors in the pipe
+        :param every_n_frames: Number of frames to wait before running detection again.
+        """
         Processor.__init__(self, outputs)
         self.every_n_frames = every_n_frames
         self.faces = []

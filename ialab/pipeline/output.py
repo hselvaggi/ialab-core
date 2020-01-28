@@ -4,7 +4,14 @@ import os
 
 
 class ShowImage(Processor):
+    """
+    Given an input image this just displays it on screen.
+    """
     def __init__(self, title, enable_exit=True):
+        """
+        :param title: Title of the image window
+        :param enable_exit: Allows exit by pressing escape
+        """
         Processor.__init__(self, [])
         self.title = title
         self.enable_exit = enable_exit
@@ -17,7 +24,15 @@ class ShowImage(Processor):
 
 
 class ImageWriter(Processor):
+    """
+    Writes an input image into disk
+
+    Expects as input: [(image, name), . . .]
+    """
     def __init__(self, destination):
+        """
+        :param destination: Folder where to write the image
+        """
         Processor.__init__(self, [])
         self.destination = destination
 

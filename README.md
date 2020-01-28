@@ -6,7 +6,7 @@ or understand. In order to avoid this pattern I tried to write a small framework
 have those standard task already solved and at the same time helps me structure the code
 in a readable and maintainable way.
 
-# Instalation
+# Installation
 
 This project has been developed with python 3.6. 
 In order to install this you need to install opencv-python and face_recognition as 

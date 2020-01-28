@@ -3,7 +3,14 @@ import cv2 as cv
 
 
 class VideoInput:
+    """
+    Base class for any type of visual input
+    """
     def __init__(self, size, listeners):
+        """
+        :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
+        :param listeners: List of Processors that will receive this input
+        """
         self.listeners = listeners
         self.finish = False
         self.size = size
@@ -15,6 +22,9 @@ class VideoInput:
             l(image)
 
     def run(self):
+        """
+        Call this to start the processing loop
+        """
         while not self.finish:
             self.runOne()
 
@@ -33,7 +43,17 @@ class VideoInput:
 
 
 class ImageInput(VideoInput):
+    """
+    This class takes a folder as parameter and loops through every image file on it
+    providing them one by one as frames until no more images are found
+    """
     def __init__(self, paths, size, listeners):
+        """
+
+        :param paths: Folder to search images in
+        :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
+        :param listeners: List of Processors that will receive this input
+        """
         super(ImageInput, self).__init__(size, listeners)
         self.paths = paths
 
@@ -44,6 +64,15 @@ class ImageInput(VideoInput):
 
 
 class CameraInput(VideoInput):
-    def __init__(self, size, listeners):
+    """
+    This class takes the camera as input.
+    """
+    def __init__(self, size, listeners, cam_id = 0):
+        """
+
+        :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
+        :param listeners: List of Processors that will receive this input
+        :param cam_id: Represent the opencv camera identifier for the system. Defaults to 0 which is the main camera.
+        """
         super(CameraInput, self).__init__(size, listeners)
-        self.cap = cv.VideoCapture(0)
+        self.cap = cv.VideoCapture(cam_id)

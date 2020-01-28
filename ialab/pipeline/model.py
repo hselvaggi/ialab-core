@@ -15,6 +15,13 @@ class Processor:
 
 
 class RegionInPaintProcessor(Processor):
+    """
+    Given an image and a set of bounding boxes paints over the input image the
+    bounding boxes.
+
+    Expects as input (image, [ ((top, left, bottom, right), . . .), . . . ]
+    Outputs: Only the input image
+    """
     def __init__(self, outputs = []):
         Processor.__init__(self,outputs=outputs)
 
