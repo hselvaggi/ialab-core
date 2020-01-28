@@ -6,6 +6,16 @@ or understand. In order to avoid this pattern I tried to write a small framework
 have those standard task already solved and at the same time helps me structure the code
 in a readable and maintainable way.
 
+# Instalation
+
+This project has been developed with python 3.6. 
+In order to install this you need to install opencv-python and face_recognition as 
+shown in the following snippet.
+
+```bash
+pip3 install opencv-python face_recognition ialab-core
+```
+
 # Architectural considerations
 
 I will try to explain they why by means of an example in computer vision. 

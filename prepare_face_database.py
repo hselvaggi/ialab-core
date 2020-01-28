@@ -1,8 +1,8 @@
 import cv2 as cv
-from pipeline.faces import FaceRecognition, FaceExtractor
-from input.image import ImageInput
-from pipeline.model import RegionInPaintProcessor, Processor
-from pipeline.output import ImageWriter, ShowImage
+from ialab.pipeline.faces import FaceRecognition, FaceExtractor
+from ialab.input.image import ImageInput
+from ialab.pipeline.model import RegionInPaintProcessor, Processor
+from ialab.pipeline.output import ImageWriter, ShowImage
 
 
 class Waiter(Processor):

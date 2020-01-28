@@ -1,4 +1,4 @@
-from pipeline.model import Processor
+from ialab.pipeline.model import Processor
 import cv2 as cv
 import os
 

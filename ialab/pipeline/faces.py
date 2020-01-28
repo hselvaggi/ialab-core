@@ -1,4 +1,4 @@
-from pipeline.model import Processor
+from ialab.pipeline.model import Processor
 import face_recognition
 import os
 
@@ -26,9 +26,10 @@ class FaceRecognition(Processor):
             for file in f:
                 image = face_recognition.load_image_file(os.path.join(r, file))
                 locations = face_recognition.face_locations(image, model='cnn')
-                encoding = face_recognition.face_encodings(image, locations)[0]
-                self.faces.append(encoding)
-                self.face_name.append(file.replace('.jpeg', ''))
+                if locations is not None and len(locations) > 0:
+                    encoding = face_recognition.face_encodings(image, locations)[0]
+                    self.faces.append(encoding)
+                    self.face_name.append(file.replace('.jpeg', ''))
 
     def __call__(self, image):
         self.frame = (self.frame + 1) % self.every_n_frames
