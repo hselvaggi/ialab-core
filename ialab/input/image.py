@@ -30,7 +30,11 @@ class VideoInput:
 
     def runOne(self):
         ret, image = self.cap.read()
-        if ret:
+        image = self._resize_(image if ret else None)
+        self.__notify_listeners__(image)
+
+    def _resize_(self, image):
+        if image is not None:
             if not self.factored:
                 x_factor =  image.shape[0] / self.size[0]
                 y_factor = image.shape[1] / self.size[1]
@@ -39,7 +43,8 @@ class VideoInput:
                 self.factored = True
 
             image = cv.resize(image, self.size, image)
-            self.__notify_listeners__(image)
+
+        return image
 
 
 class ImageInput(VideoInput):
@@ -60,7 +65,7 @@ class ImageInput(VideoInput):
     def run(self):
         for r, d, f in os.walk(self.paths):
             for file in f:
-                self.__notify_listeners__(cv.imread(os.path.join(r, file)))
+                self.__notify_listeners__(self._resize_(cv.imread(os.path.join(r, file))))
 
 
 class CameraInput(VideoInput):
