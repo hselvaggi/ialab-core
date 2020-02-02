@@ -1,5 +1,5 @@
 import cv2 as cv
-from ialab.pipeline.faces import FaceRecognition, FaceExtractor
+from ialab.pipeline.detection import FaceRecognition, FaceExtractor
 from ialab.input.image import ImageInput
 from ialab.pipeline.model import RegionInPaintProcessor, Processor
 from ialab.pipeline.output import ImageWriter, ShowImage
