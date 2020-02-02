@@ -65,3 +65,13 @@ graph = FaceRecognition(original_pictures_path, [
 video = ImageInput(original_pictures_path, (320, 240), [graph])
 video.run()
 ```
+
+## Running the examples
+
+### YoloV3
+
+To run YoloV3 you need to download the configuration files and place them into 
+./modes/yolov3. There are 3 files that need to be downloaded yolov3.cfg, yolov3.weights
+and coco.names. These files can be downloaded from https://pjreddie.com/darknet/yolo/.
+
+After downloading just execute python3 obj_recog.py
