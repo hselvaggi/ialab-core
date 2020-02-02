@@ -9,11 +9,9 @@ in a readable and maintainable way.
 # Installation
 
 This project has been developed with python 3.6. 
-In order to install this you need to install opencv-python and face_recognition as 
-shown in the following snippet.
 
 ```bash
-pip3 install opencv-python face_recognition ialab-core
+pip3 install ialab-core
 ```
 
 # Architectural considerations
