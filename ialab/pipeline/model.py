@@ -34,3 +34,16 @@ class RegionInPaintProcessor(Processor):
                 image = cv.putText(image, region[1], fontFace=2, fontScale=1, org=(region[0][3], region[0][0] + 20), color=(0,0,0))
 
         self.deliver(image)
+
+
+class KeyWait(Processor):
+    """
+    This should be used if you want to be able to see the result of a processing step before moving to
+    the next one. This is mainly useful for debug purposes. This class is supposed to wait only in the
+    context of OpenCV.
+    """
+    def __init__(self):
+        Processor.__init__(self, [])
+
+    def __call__(self, *args, **kwargs):
+        cv.waitKey(0)
