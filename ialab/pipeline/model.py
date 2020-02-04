@@ -47,3 +47,36 @@ class KeyWait(Processor):
 
     def __call__(self, *args, **kwargs):
         cv.waitKey(0)
+
+
+class ParallelProcessor(Processor):
+    def __init__(self, processor, outputs = []):
+        Processor.__init__(self, outputs=outputs)
+
+
+def extract_parameter(index, processor):
+    """
+    This should be used when a processor in the chain receives just one
+    parameter instead of tuple and you need just one of the tuple elements
+    :param index:
+    :param processor:
+    :return:
+    """
+    def wrapper(parameter):
+        processor(parameter[index])
+
+    return wrapper
+
+
+def add_parameter(index, constant, processor):
+    """
+    This should be used when a processor in the chain receives a tuple
+    parameter instead of a single value and you need to expand it to a tuple
+    :param index:
+    :param processor:
+    :return:
+    """
+    def wrapper(parameter):
+        processor((parameter, constant))
+
+    return wrapper
