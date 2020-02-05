@@ -19,7 +19,7 @@ class VideoInput:
 
     def __notify_listeners__(self, image):
         for l in self.listeners:
-            l(image)
+            l({'image': image})
 
     def run(self):
         """

@@ -13,10 +13,11 @@ class FaceExtractor(Processor):
     def __init__(self, outputs=[]):
         Processor.__init__(self, outputs)
 
-    def __call__(self, faces):
-        image, regions = faces
+    def __call__(self, data):
+        image = data['image']
+        regions = data['regions']
         images = [ (image[top:bottom,left:right], name) for ((top, right, bottom, left), name) in regions]
-        self.deliver(images)
+        self.deliver({'images': images})
 
 
 class Skiper(object):
@@ -32,7 +33,7 @@ class Skiper(object):
         self.result = result
 
     def get_result(self, image):
-        return (image, self.result)
+        return {'image': image, 'regions': self.result}
 
 
 class FaceRecognition(Processor):
@@ -65,7 +66,8 @@ class FaceRecognition(Processor):
                     self.faces.append(encoding)
                     self.face_name.append(file.replace('.jpeg', ''))
 
-    def __call__(self, image):
+    def __call__(self, data):
+        image = data['image']
         if self.skiper.should_execute():
             locations = face_recognition.face_locations(image, model='cnn')
             if locations is not None and len(locations) > 0:
@@ -104,7 +106,8 @@ class YoloV3(Processor):
         output_layers = [layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
         return self.net.forward(output_layers)
 
-    def __call__(self, image):
+    def __call__(self, data):
+        image = data['image']
         if self.skiper.should_execute():
             Width = image.shape[1]
             Height = image.shape[0]
