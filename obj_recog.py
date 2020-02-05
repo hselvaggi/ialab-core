@@ -1,6 +1,6 @@
 from ialab.input.image import CameraInput
 from ialab.pipeline.model import RegionInPaintProcessor, parameter_transformer
-from ialab.pipeline.detection import YoloV3, Skiper
+from ialab.pipeline.detection import YoloV3, Skipper
 from ialab.pipeline.output import ShowImage
 
 
@@ -11,7 +11,7 @@ if __name__ == '__main__':
         RegionInPaintProcessor(outputs=[
             ShowImage('demo')
         ])
-    ], skiper=Skiper(4))
+    ], skiper=Skipper(4))
 
     video = CameraInput((800, 600), [start])
     video.run()

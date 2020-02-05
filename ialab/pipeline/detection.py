@@ -20,7 +20,7 @@ class FaceExtractor(Processor):
         self.deliver({'images': images})
 
 
-class Skiper(object):
+class Skipper(object):
     def __init__(self, n_frames=1):
         self.n_frames = n_frames
         self.counter = self.n_frames - 1
@@ -44,7 +44,7 @@ class FaceRecognition(Processor):
 
     Delivers: (image, [(location, name), . . .])
     """
-    def __init__(self, paths='', outputs=[], skiper=Skiper(1)):
+    def __init__(self, paths='', outputs=[], skiper=Skipper(1)):
         """
         :param paths: Folder with the faces images for each person. The name of the file is the name of the person.
         :param outputs: Next processors in the pipe
@@ -94,7 +94,7 @@ class FaceRecognition(Processor):
 
 
 class YoloV3(Processor):
-    def __init__(self, cfg, weights, names, outputs=[], skiper=Skiper(1)):
+    def __init__(self, cfg, weights, names, outputs=[], skiper=Skipper(1)):
         Processor.__init__(self, outputs)
         self.skiper = skiper
         self.net = cv.dnn.readNet(cfg, weights)
