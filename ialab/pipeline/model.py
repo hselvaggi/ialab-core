@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
-
+from time import time
+from functools import wraps
 
 class Processor:
     def __init__(self, outputs=[]):
@@ -19,10 +20,38 @@ class FPSCounter(Processor):
         super().__init__(outputs=outputs)
         self.display = display
         self.counter = 0
+        self.fps = None
+        self.start = None
 
     def __call__(self, data):
-        image = data['image']
+        if self.start is None:
+            self.start = time()
+        if self.counter == 15:
+            t = time()
+            self.fps = (self.counter / (t - self.start))
+            self.start = t
+            self.counter = 0
+
+        if self.fps is not None:
+            data['text'] = self.fps
+
         self.counter += 1
+        self.deliver(data)
+
+
+class TextWriter(Processor):
+    def __init__(self, x: int, y: int, outputs = []):
+        super().__init__(outputs = outputs)
+        self.x = x
+        self.y = y
+
+    def __call__(self, data):
+        if 'text' in data.keys():
+            text = data['text']
+            image = data['image']
+            image = cv.putText(image, str(text), fontFace=2, fontScale=1, org=(self.x, self.y),
+                               color=(0, 0, 0))
+
         self.deliver(data)
 
 
@@ -74,6 +103,7 @@ def parameter_transformer(f):
     :param f: Function that takes care of the parameter transformation
     :return: A function that can be applied to a Processor
     """
+    @wraps
     def processor_wrapper(processor):
         def wrapper(data):
             processor(f(data))

@@ -7,7 +7,7 @@ class ShowImage(Processor):
     """
     Given an input image this just displays it on screen.
     """
-    def __init__(self, title, enable_exit=True):
+    def __init__(self, title: str, enable_exit=True):
         """
         :param title: Title of the image window
         :param enable_exit: Allows exit by pressing escape
@@ -29,7 +29,7 @@ class ImageWriter(Processor):
 
     Expects as input: [(image, name), . . .]
     """
-    def __init__(self, destination):
+    def __init__(self, destination: str):
         """
         :param destination: Folder where to write the image
         """

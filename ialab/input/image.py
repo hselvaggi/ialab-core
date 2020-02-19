@@ -52,14 +52,14 @@ class ImageInput(VideoInput):
     This class takes a folder as parameter and loops through every image file on it
     providing them one by one as frames until no more images are found
     """
-    def __init__(self, paths, size, listeners):
+    def __init__(self, paths: str, size: (int, int), outputs):
         """
 
         :param paths: Folder to search images in
         :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
         :param listeners: List of Processors that will receive this input
         """
-        super().__init__(size, listeners)
+        super().__init__(size, outputs)
         self.paths = paths
 
     def run(self):
@@ -72,12 +72,12 @@ class CameraInput(VideoInput):
     """
     This class takes the camera as input.
     """
-    def __init__(self, size, listeners, cam_id = 0):
+    def __init__(self, size, outputs, cam_id = 0):
         """
 
         :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
         :param listeners: List of Processors that will receive this input
         :param cam_id: Represent the opencv camera identifier for the system. Defaults to 0 which is the main camera.
         """
-        super().__init__(size, listeners)
+        super().__init__(size, outputs)
         self.cap = cv.VideoCapture(cam_id)
