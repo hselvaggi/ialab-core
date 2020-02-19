@@ -12,7 +12,7 @@ class ShowImage(Processor):
         :param title: Title of the image window
         :param enable_exit: Allows exit by pressing escape
         """
-        Processor.__init__(self, [])
+        super().__init__([])
         self.title = title
         self.enable_exit = enable_exit
 
@@ -33,7 +33,7 @@ class ImageWriter(Processor):
         """
         :param destination: Folder where to write the image
         """
-        Processor.__init__(self, [])
+        super().__init__([])
         self.destination = destination
 
     def __call__(self, data):

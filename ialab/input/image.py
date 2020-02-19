@@ -59,7 +59,7 @@ class ImageInput(VideoInput):
         :param size: Size the frames are going to be. This means maximum on width or height not exact size as this will keep image aspect ratio.
         :param listeners: List of Processors that will receive this input
         """
-        super(ImageInput, self).__init__(size, listeners)
+        super().__init__(size, listeners)
         self.paths = paths
 
     def run(self):
@@ -79,5 +79,5 @@ class CameraInput(VideoInput):
         :param listeners: List of Processors that will receive this input
         :param cam_id: Represent the opencv camera identifier for the system. Defaults to 0 which is the main camera.
         """
-        super(CameraInput, self).__init__(size, listeners)
+        super().__init__(size, listeners)
         self.cap = cv.VideoCapture(cam_id)

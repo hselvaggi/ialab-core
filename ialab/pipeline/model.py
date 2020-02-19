@@ -14,6 +14,18 @@ class Processor:
             o(output)
 
 
+class FPSCounter(Processor):
+    def __init__(self, display=True, outputs=[]):
+        super().__init__(outputs=outputs)
+        self.display = display
+        self.counter = 0
+
+    def __call__(self, data):
+        image = data['image']
+        self.counter += 1
+        self.deliver(data)
+
+
 class RegionInPaintProcessor(Processor):
     """
     Given an image and a set of bounding boxes paints over the input image the
@@ -23,7 +35,7 @@ class RegionInPaintProcessor(Processor):
     Outputs: Only the input image
     """
     def __init__(self, outputs = []):
-        Processor.__init__(self,outputs=outputs)
+        super().__init__(outputs=outputs)
 
     def __call__(self, data):
         image = data['image']
@@ -44,7 +56,7 @@ class KeyWait(Processor):
     context of OpenCV.
     """
     def __init__(self):
-        Processor.__init__(self, [])
+        super().__init__([])
 
     def __call__(self, *args, **kwargs):
         cv.waitKey(0)
@@ -52,7 +64,7 @@ class KeyWait(Processor):
 
 class ParallelProcessor(Processor):
     def __init__(self, processor, outputs = []):
-        Processor.__init__(self, outputs=outputs)
+        super().__init__(outputs=outputs)
 
 
 def parameter_transformer(f):

@@ -11,7 +11,7 @@ class FaceExtractor(Processor):
     the next Processor a list of images.
     """
     def __init__(self, outputs=[]):
-        Processor.__init__(self, outputs)
+        super().__init__(outputs)
 
     def __call__(self, data):
         image = data['image']
@@ -20,7 +20,7 @@ class FaceExtractor(Processor):
         self.deliver({'images': images})
 
 
-class Skipper(object):
+class Skipper:
     def __init__(self, n_frames=1):
         self.n_frames = n_frames
         self.counter = self.n_frames - 1
@@ -51,7 +51,7 @@ class FaceRecognition(Processor):
         :param every_n_frames: Number of frames to wait before running detection again.
         :param skiper: Number of frames to wait before running detection again.
         """
-        Processor.__init__(self, outputs)
+        super().__init__(outputs)
         self.faces = []
         self.face_name = []
         self.result = []
@@ -95,7 +95,7 @@ class FaceRecognition(Processor):
 
 class YoloV3(Processor):
     def __init__(self, cfg, weights, names, outputs=[], skiper=Skipper(1)):
-        Processor.__init__(self, outputs)
+        super().__init__(outputs)
         self.skiper = skiper
         self.net = cv.dnn.readNet(cfg, weights)
         with open(names, 'r') as f:
