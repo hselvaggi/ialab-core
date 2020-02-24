@@ -3,6 +3,7 @@ import numpy as np
 from time import time
 from functools import wraps
 
+
 class Processor:
     def __init__(self, outputs=[]):
         self.outputs = outputs
@@ -13,6 +14,12 @@ class Processor:
     def deliver(self, output):
         for o in self.outputs:
             o(output)
+
+    def __add__(self, processors):
+        if isinstance(processors, list):
+            self.outputs += processors
+        elif isinstance(processors, Processor):
+            self.outputs.append(processors)
 
 
 class FPSCounter(Processor):

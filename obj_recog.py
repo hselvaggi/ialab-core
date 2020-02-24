@@ -5,7 +5,7 @@ from ialab.pipeline.output import ShowImage
 from os import path
 
 if __name__ == '__main__':
-    base_path = '/home/harold/Documents/models/yolov3'
+    base_path = './models/yolov3'
     start = FPSCounter(True, outputs=[TextWriter(20, 20, outputs=[
                 YoloV3(path.join(base_path, 'yolov3.cfg'), path.join(base_path, 'yolov3.weights'),
                    path.join(base_path, 'coco.names'),

@@ -90,7 +90,7 @@ class FaceRecognition(Processor):
 
             self.skiper.set_result(result)
 
-        self.deliver(self.skiper.get_result(image))
+        self.deliver(self.skiper.get_rself.esult(image))
 
 
 class YoloV3(Processor):
@@ -98,6 +98,9 @@ class YoloV3(Processor):
         super().__init__(outputs)
         self.skiper = skiper
         self.net = cv.dnn.readNet(cfg, weights)
+        self.net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
+        self.net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
+
         with open(names, 'r') as f:
             self.classes = [c.strip() for c in f.readlines()]
 
